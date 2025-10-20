@@ -1,4 +1,6 @@
-function createNavigationButtons(page: number): ActionRowBuilder<ButtonBuilder> {
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js"
+
+export function createNavigationButtons(page: number, totalPages: number): ActionRowBuilder<ButtonBuilder> {
     return new ActionRowBuilder<ButtonBuilder>()
         .addComponents(
             new ButtonBuilder()
@@ -24,7 +26,7 @@ function createNavigationButtons(page: number): ActionRowBuilder<ButtonBuilder> 
         )
 }
 
-function createDisabledButtons(page: number): ActionRowBuilder<ButtonBuilder> {
+export function createDisabledButtons(page: number): ActionRowBuilder<ButtonBuilder> {
     return new ActionRowBuilder<ButtonBuilder>()
         .addComponents(
             new ButtonBuilder()

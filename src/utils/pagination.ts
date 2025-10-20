@@ -1,4 +1,6 @@
+import { ChatInputCommandInteraction, ComponentType } from "discord.js";
 import { PageCreator } from "../types";
+import { createDisabledButtons, createNavigationButtons } from "../components/navigationButtons";
 
 export async function createPagination(
     interaction: ChatInputCommandInteraction,
@@ -52,7 +54,7 @@ export async function createPagination(
         await interactor.update({
             embeds,
             files,
-            components: [createButtons(currentPage)]
+            components: [createNavigationButtons(currentPage, totalPages)]
         });
     });
 
