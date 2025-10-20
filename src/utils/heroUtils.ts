@@ -2,14 +2,8 @@ import { EmbedBuilder } from "@discordjs/builders";
 import { Hero } from "../types";
 import { ChatInputCommandInteraction } from "discord.js";
 import { sendPaginationItems, sendPaginationItemsWithExtra } from "./pagination";
-export function getHeroRoleColor(heroRole: string): number {
-    const colors: Record<string, number> = {
-        'Tank': 0xFAA81A,
-        'Damage': 0xFF4655,
-        'Support': 0xAAFF80
-    }
-    return colors[heroRole] ?? 0x5865F2;
-}
+import { getHeroRoleColor } from "./colors";
+
 export function createSingleHeroEmbed(hero: Hero): EmbedBuilder {
     const embed = new EmbedBuilder()
         .setTitle(`${hero.hero} (${hero.role})`)
