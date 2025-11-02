@@ -1,5 +1,7 @@
 export interface Hero {
-    id: number;
-    name: string;
-    role: 'tank' | 'damage' | 'support';
+    heroid?: number;
+    hero: string;
+    role: string;
+    passive?: string;
+    description?: string;
 }

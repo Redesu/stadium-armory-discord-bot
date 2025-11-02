@@ -38,12 +38,12 @@ export const item: Command = {
         )
         .addIntegerOption((option) =>
             option
-                .setName('Price')
+                .setName('price')
                 .setDescription('The price of the item')
         )
         .addIntegerOption((option) =>
             option
-                .setName('hero id')
+                .setName('hero_id')
                 .setDescription('The hero id of the item')
         ),
 

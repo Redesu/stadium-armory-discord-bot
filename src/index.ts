@@ -2,11 +2,15 @@ import { Client, Events, GatewayIntentBits, Interaction } from 'discord.js';
 import 'dotenv/config';
 import loadCommands from './utils/commandLoader';
 import { ClientWithCommands } from './types';
+import { ServiceManager } from './services/ServicesManager';
 
 const token = process.env.DISCORD_TOKEN;
 const client = new Client({ intents: [GatewayIntentBits.Guilds] }) as ClientWithCommands;
 
 client.commands = loadCommands();
+
+client.services = new ServiceManager();
+
 client.once(Events.ClientReady, c => {
     console.log(`Ready! Logged in as ${c.user.tag}`);
 });

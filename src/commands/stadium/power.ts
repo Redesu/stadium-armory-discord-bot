@@ -7,7 +7,7 @@ export const power: Command = {
         .setDescription('List current powers')
         .addStringOption(option => option.setName('name').setDescription('Name of the power'))
         .addStringOption(option => option.setName('description').setDescription('Description of the power'))
-        .addIntegerOption(option => option.setName('hero id').setDescription('The hero id of the power')),
+        .addIntegerOption(option => option.setName('hero_id').setDescription('The hero id of the power')),
 
 
     async execute(interaction) {
