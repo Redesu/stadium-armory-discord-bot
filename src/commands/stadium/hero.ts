@@ -1,6 +1,6 @@
 import { SlashCommandBuilder } from "discord.js";
 import { Command } from "../../types";
-import { getHeroSearchParams, handleHeroInfoResponse } from "../../utils/heroUtils";
+import { getHeroSearchParams, handleHeroInfoResponse, handleHeroPowersResponse } from "../../utils/heroUtils";
 
 export const hero: Command = {
     data: new SlashCommandBuilder()
@@ -66,11 +66,14 @@ export const hero: Command = {
                 case 'powers': {
                     const heroName = interaction.options.getString('name') ?? '';
 
-                    const data = await interaction.client.services.hero.getHeroPowers(heroName);
+                    const powers = await interaction.client.services.hero.getHeroPowers(heroName)
 
-                    data.name = heroName;
+                    if (powers.length === 0) {
+                        await interaction.editReply('Hero or heroes not found.');
+                        return;
+                    }
 
-
+                    await handleHeroPowersResponse(interaction, powers);
                     break;
                 }
                 case 'items': {

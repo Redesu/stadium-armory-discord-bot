@@ -16,7 +16,7 @@ export class HeroesService {
     }
 
     async getHeroPowers(heroName: string) {
-        const data = (await this.apiClient.get(`/heroes/${heroName}/powers`)).data;
+        const data = (await this.apiClient.get(`/heroes/${heroName}/powers?image_url=true`)).data;
         if (data.status === 404) {
             return [];
         }

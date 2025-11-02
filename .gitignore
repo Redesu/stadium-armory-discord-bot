@@ -137,4 +137,5 @@ dist
 .pnp.*
 
 db_password.txt
-db_url.txt/.vscode
+db_url.txt
+/.vscode

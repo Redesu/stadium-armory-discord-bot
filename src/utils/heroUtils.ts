@@ -1,6 +1,7 @@
 import { EmbedBuilder } from "@discordjs/builders";
-import { Hero } from "../types";
-import { ChatInputCommandInteraction } from "discord.js";
+import { Hero, Power } from "../types";
+import { AttachmentBuilder, ChatInputCommandInteraction } from "discord.js";
+import { sendPaginationItems } from "./pagination";
 export function getHeroRoleColor(heroRole: string): number {
     const colors: Record<string, number> = {
         'Tank': 0xFAA81A,
@@ -34,7 +35,7 @@ export function createMultipleHeroesEmbed(heroes: Hero[]): EmbedBuilder {
 
     const displayLimit = 10;
 
-    heroes.slice(0, 10).forEach((hero: Hero) => {
+    heroes.slice(0, displayLimit).forEach((hero: Hero) => {
         const passiveText = hero.passive ? `**Passive**: ${hero.passive}\n` : '';
         const descriptionText = hero.description ? `**Description**: ${hero.description}` : '';
 
@@ -69,10 +70,11 @@ export function getHeroSearchParams(interaction: ChatInputCommandInteraction): {
     };
 }
 
+
 export async function handleHeroInfoResponse(interaction: ChatInputCommandInteraction, heroes: Hero[]): Promise<void> {
 
     if (heroes.length === 0) {
-        await interaction.editReply('Hero or heroes not found.');
+        await interaction.editReply('Hero or heroesc not found.');
         return;
     }
 
@@ -84,4 +86,18 @@ export async function handleHeroInfoResponse(interaction: ChatInputCommandIntera
 
     const embed = createSingleHeroEmbed(heroes[0]);
     await interaction.editReply({ embeds: [embed] });
+}
+
+export async function handleHeroPowersResponse(interaction: ChatInputCommandInteraction, powers: any[]): Promise<void> {
+
+    if (powers.length === 0) {
+        await interaction.editReply('Hero or heroes not found.');
+        return;
+    }
+
+    await sendPaginationItems(interaction, powers, {
+        itemsPerPage: 6,
+        embedColor: 0x5865F2,
+        itemLabel: 'Powers'
+    });
 }
