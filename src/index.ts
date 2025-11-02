@@ -1,8 +1,7 @@
-import { Client, Collection, Events, GatewayIntentBits, Interaction } from 'discord.js';
+import { Client, Events, GatewayIntentBits, Interaction } from 'discord.js';
 import 'dotenv/config';
 import loadCommands from './utils/commandLoader';
-import { Command } from './types/Command';
-import { ClientWithCommands } from './types/ClientWithCommands';
+import { ClientWithCommands } from './types';
 
 const token = process.env.DISCORD_TOKEN;
 const client = new Client({ intents: [GatewayIntentBits.Guilds] }) as ClientWithCommands;
