@@ -19,31 +19,4 @@ export class PowersService {
 
         return fetch(url).then(response => response.json());
     }
-
-    async addPower(power: Power) {
-        const url = `${this.apiUrl}/powers`;
-
-        return fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${this.apiToken}`
-            },
-            body: JSON.stringify(power)
-        }).then(response => response.json());
-    }
-
-    async updatePower(power: Partial<Power>) {
-        const url = `${this.apiUrl}/powers`
-
-        return fetch(url, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${this.apiToken}`
-            },
-            body: JSON.stringify(power)
-        }).then(response => response.json());
-    }
-
 }
