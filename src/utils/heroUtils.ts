@@ -1,7 +1,7 @@
 import { EmbedBuilder } from "@discordjs/builders";
-import { Hero, Power } from "../types";
-import { AttachmentBuilder, ChatInputCommandInteraction } from "discord.js";
-import { sendPaginationItems } from "./pagination";
+import { Hero } from "../types";
+import { ChatInputCommandInteraction } from "discord.js";
+import { sendPaginationItems, sendPaginationItemsWithExtra } from "./pagination";
 export function getHeroRoleColor(heroRole: string): number {
     const colors: Record<string, number> = {
         'Tank': 0xFAA81A,
@@ -71,7 +71,7 @@ export function getHeroSearchParams(interaction: ChatInputCommandInteraction): {
 }
 
 
-export async function handleHeroInfoResponse(interaction: ChatInputCommandInteraction, heroes: Hero[]): Promise<void> {
+export async function handleHeroInfoResponse(interaction: ChatInputCommandInteraction, heroes: any[]): Promise<void> {
 
     if (heroes.length === 0) {
         await interaction.editReply('Hero or heroesc not found.');
@@ -100,4 +100,14 @@ export async function handleHeroPowersResponse(interaction: ChatInputCommandInte
         embedColor: 0x5865F2,
         itemLabel: 'Powers'
     });
+}
+
+export async function handleHeroItemsResponse(interaction: ChatInputCommandInteraction, items: any[]): Promise<void> {
+
+    if (items.length === 0) {
+        await interaction.editReply('Hero or heroes not found.');
+        return;
+    }
+
+    await sendPaginationItemsWithExtra(interaction, items);
 }

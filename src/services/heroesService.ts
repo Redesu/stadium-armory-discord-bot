@@ -24,7 +24,7 @@ export class HeroesService {
     }
 
     async getHeroItems(heroName: string) {
-        const data = (await this.apiClient.get(`/heroes/${heroName}/items`)).data;
+        const data = (await this.apiClient.get(`/heroes/${heroName}/items?image_url=true`)).data;
         if (data.status === 404) {
             return [];
         }

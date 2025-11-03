@@ -1,6 +1,6 @@
 import { SlashCommandBuilder } from "discord.js";
 import { Command } from "../../types";
-import { getHeroSearchParams, handleHeroInfoResponse, handleHeroPowersResponse } from "../../utils/heroUtils";
+import { getHeroSearchParams, handleHeroInfoResponse, handleHeroItemsResponse, handleHeroPowersResponse } from "../../utils/heroUtils";
 
 export const hero: Command = {
     data: new SlashCommandBuilder()
@@ -69,7 +69,7 @@ export const hero: Command = {
                     const powers = await interaction.client.services.hero.getHeroPowers(heroName)
 
                     if (powers.length === 0) {
-                        await interaction.editReply('Hero or heroes not found.');
+                        await interaction.editReply(`Powers not found for hero ${heroName}.`);
                         return;
                     }
 
@@ -79,9 +79,14 @@ export const hero: Command = {
                 case 'items': {
                     const heroName = interaction.options.getString('name') ?? '';
 
-                    const data = await interaction.client.services.hero.getHeroItems(heroName);
+                    const items = await interaction.client.services.hero.getHeroItems(heroName);
 
-                    await interaction.editReply(`Data received: ${JSON.stringify(data)}`);
+                    if (items.length === 0) {
+                        await interaction.editReply(`Items not found for hero ${heroName}.`);
+                        return;
+                    }
+
+                    await handleHeroItemsResponse(interaction, items);
                     break;
                 }
             }
