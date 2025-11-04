@@ -11,7 +11,8 @@ export const ping: Command = {
             withResponse: true
         });
 
-        const apiPing = Date.now() - interaction.createdTimestamp;
+        const sent = await interaction.fetchReply();
+        const apiPing = sent.createdTimestamp - interaction.createdTimestamp;
 
         await interaction.editReply(`Pong! ${apiPing}ms.`);
     },

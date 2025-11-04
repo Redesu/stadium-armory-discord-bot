@@ -1,4 +1,4 @@
-import { Client, Events, GatewayIntentBits, Interaction } from 'discord.js';
+import { ActivityType, Client, Events, GatewayIntentBits, Interaction } from 'discord.js';
 import 'dotenv/config';
 import loadCommands from './utils/commandLoader';
 import { ClientWithCommands } from './types';
@@ -13,7 +13,17 @@ client.services = new ServiceManager();
 
 client.once(Events.ClientReady, c => {
     console.log(`Ready! Logged in as ${c.user.tag}`);
+    console.log(`Guilds: ${c.guilds.cache.size}`);
+
+    client.user?.setPresence({
+        activities: [{
+            name: `Welcome to the Armory!`,
+            type: ActivityType.Watching
+        }],
+        status: 'online'
+    })
 });
+
 
 client.on(Events.InteractionCreate, async (interaction: Interaction) => {
     if (!interaction.isChatInputCommand()) return;
