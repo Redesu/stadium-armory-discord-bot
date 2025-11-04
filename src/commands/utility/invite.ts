@@ -13,8 +13,9 @@ export const invite: Command = {
         const inviteUrl = `https://discord.com/api/oauth2/authorize?client_id=${process.env.DISCORD_CLIENT_ID}&scope=bot&permissions=51200`;
 
         const embed = new EmbedBuilder()
-            .setDescription(`[Invite me to your server](${inviteUrl})`);
+            .setDescription(`[Invite me to your server](${inviteUrl})`)
+            .setColor(0xFFFFFF);
 
-        await interaction.reply({ embeds: [embed] });
+        await interaction.editReply({ embeds: [embed] });
     }
 }
