@@ -1,5 +1,7 @@
 import { SlashCommandBuilder } from "discord.js";
 import { Command } from "../../types";
+import { Power } from "../../types";
+import { handlePowersResponse } from "../../utils/commandsUtils";
 
 export const power: Command = {
     data: new SlashCommandBuilder()
@@ -13,20 +15,26 @@ export const power: Command = {
     async execute(interaction) {
         await interaction.deferReply();
 
-        const powerName = interaction.options.getString('name') ?? '';
-        const powerDescription = interaction.options.getString('description') ?? '';
-        const powerHeroId = interaction.options.getInteger('hero id') ?? '';
-
-        const power = {
-            name: powerName,
-            description: powerDescription,
-            hero_id: Number(powerHeroId)
+        const powerData = {
+            name: interaction.options.getString('name'),
+            description: interaction.options.getString('description'),
+            hero_id: interaction.options.getInteger('hero_id')
         };
 
-        try {
-            const data = await interaction.client.services.power.getPower(power);
 
-            await interaction.reply(`Data received: ${JSON.stringify(data)}`);
+        const power: Power = Object.fromEntries(
+            Object.entries(powerData).filter(([_, value]) => value !== null && value !== undefined)
+        );
+
+        try {
+            const powers = await interaction.client.services.power.getPower(power);
+            if (powers.length === 0) {
+                await interaction.editReply('Power or powers not found.');
+                return;
+            }
+
+            await handlePowersResponse(interaction, powers);
+
         } catch (error) {
             console.error(error);
             await interaction.reply('Could not fetch the power data.')

@@ -50,7 +50,7 @@ export async function createPagination(
                 break;
         }
 
-        const { embeds, files } = createPage(currentPage);
+        const { embeds, files } = pageCreator(currentPage, totalPages);
         await interactor.update({
             embeds,
             files,

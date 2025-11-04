@@ -1,3 +1,5 @@
+import { AttachmentBuilder, EmbedBuilder } from "discord.js";
+
 export interface PageData {
     embeds: EmbedBuilder[];
     files: AttachmentBuilder[];

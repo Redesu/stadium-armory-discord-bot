@@ -8,10 +8,10 @@ export class PowersService {
 
     async getPower(power: Partial<Power>) {
         const queryString = buildQueryStrings(power, ['image_url'])
-        const data = (await this.apiClient.get(`/powers${queryString}`)).data;
+        const data = await this.apiClient.get(`/powers${queryString}&image_url=true`);
         if (data.status === 404) {
             return [];
         }
-        return data;
+        return data.data;
     }
 }

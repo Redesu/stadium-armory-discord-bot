@@ -1,6 +1,6 @@
 import { SlashCommandBuilder } from "discord.js";
 import { Command } from "../../types";
-import { getHeroSearchParams, handleHeroInfoResponse, handleHeroItemsResponse, handleHeroPowersResponse } from "../../utils/heroUtils";
+import { getHeroSearchParams, handleHeroInfoResponse, handleItemsResponse, handlePowersResponse } from "../../utils/commandsUtils";
 
 export const hero: Command = {
     data: new SlashCommandBuilder()
@@ -73,7 +73,7 @@ export const hero: Command = {
                         return;
                     }
 
-                    await handleHeroPowersResponse(interaction, powers);
+                    await handlePowersResponse(interaction, powers);
                     break;
                 }
                 case 'items': {
@@ -86,7 +86,7 @@ export const hero: Command = {
                         return;
                     }
 
-                    await handleHeroItemsResponse(interaction, items);
+                    await handleItemsResponse(interaction, items);
                     break;
                 }
             }

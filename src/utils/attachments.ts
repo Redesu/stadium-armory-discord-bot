@@ -4,5 +4,5 @@ export function sanitizeFileName(name: string): string {
 
 
 export function base64ImageToBuffer(base64Image: string): Buffer {
-    return Buffer.from(base64Image.split('base64,')[1])
+    return Buffer.from(base64Image.split('base64,')[1], 'base64');
 }

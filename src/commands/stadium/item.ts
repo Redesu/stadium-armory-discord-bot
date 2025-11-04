@@ -1,5 +1,6 @@
 import { SlashCommandBuilder } from "discord.js";
-import { Command } from "../../types";
+import { Command, Item } from "../../types";
+import { handleItemsResponse } from "../../utils/commandsUtils";
 
 export const item: Command = {
     data: new SlashCommandBuilder()
@@ -50,26 +51,28 @@ export const item: Command = {
     async execute(interaction) {
         await interaction.deferReply();
 
-        const itemName = interaction.options.getString('name') ?? '';
-        const itemRarity = interaction.options.getString('rarity') ?? '';
-        const itemType = interaction.options.getString('type') ?? '';
-        const itemDescription = interaction.options.getString('description') ?? '';
-        const itemPrice = interaction.options.getInteger('price') ?? '';
-        const itemHeroId = interaction.options.getInteger('hero id') ?? '';
-
-        const item = {
-            name: itemName,
-            rarity: itemRarity,
-            type: itemType,
-            description: itemDescription,
-            price: Number(itemPrice),
-            hero_id: Number(itemHeroId)
+        const itemData = {
+            name: interaction.options.getString('name'),
+            rarity: interaction.options.getString('rarity'),
+            type: interaction.options.getString('type'),
+            description: interaction.options.getString('description'),
+            price: interaction.options.getInteger('price'),
+            hero_id: interaction.options.getInteger('hero id')
         }
 
-        try {
-            const data = await interaction.client.services.item.getItem(item);
+        const item: Partial<Item> = Object.fromEntries(
+            Object.entries(itemData).filter(([_, value]) => value !== null && value !== undefined)
+        );
 
-            await interaction.reply(`Data received: ${JSON.stringify(data)}`);
+        try {
+            const items = await interaction.client.services.item.getItem(item);
+            if (items.length === 0) {
+                await interaction.editReply('Items or item not found.');
+                return;
+            }
+
+            await handleItemsResponse(interaction, items);
+
         } catch (error) {
             console.error(error);
             await interaction.reply('Could not fetch the item data.')
