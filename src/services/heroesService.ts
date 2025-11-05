@@ -16,19 +16,19 @@ export class HeroesService {
     }
 
     async getHeroPowers(heroName: string) {
-        const data = (await this.apiClient.get(`/heroes/${heroName}/powers?image_url=true`)).data;
+        const data = await this.apiClient.get(`/heroes/${heroName}/powers?image_url=true`);
         if (data.status === 404) {
             return [];
         }
-        return data;
+        return data.data;
     }
 
     async getHeroItems(heroName: string) {
-        const data = (await this.apiClient.get(`/heroes/${heroName}/items?image_url=true`)).data;
+        const data = await this.apiClient.get(`/heroes/${heroName}/items?image_url=true`);
         if (data.status === 404) {
             return [];
         }
-        return data;
+        return data.data;
     }
 
 }
