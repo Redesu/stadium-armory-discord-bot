@@ -1,5 +1,7 @@
 # Stadium Armory
 
+![Main page](https://i.imgur.com/n7BzC8F.png)
+
 A discord bot for [Overwatch Stadium](https://overwatch.blizzard.com/news/24188046/) using [discord.js](https://discord.js.org/#/) and [node.js](https://nodejs.org/en/). It uses [ow-stadium-api](https://github.com/Redesu/ow-stadium-api) as a data source. Use `/help` to see all available commands.
 
 -----
@@ -10,8 +12,12 @@ A discord bot for [Overwatch Stadium](https://overwatch.blizzard.com/news/241880
 ## Features
 
 - Show information about a hero, power, or item
+![Hero Info](https://i.imgur.com/kzYlk2d.gif)
 - Search for a hero, power, or item using custom filters
+![Search](https://i.imgur.com/YHYqEM3.gif)
 - List all heroes, powers, or items by role, rarity, or price
+![List](https://i.imgur.com/rC7o54h.gif)
+
 
 -----
 
