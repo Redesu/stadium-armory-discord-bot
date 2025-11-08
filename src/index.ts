@@ -3,6 +3,9 @@ import 'dotenv/config';
 import loadCommands from './utils/commandLoader';
 import { ClientWithCommands } from './types';
 import { ServiceManager } from './services/ServicesManager';
+import { LoggerService } from './services/loggerService';
+
+const logger = new LoggerService();
 
 const token = process.env.DISCORD_TOKEN;
 const client = new Client({ intents: [GatewayIntentBits.Guilds] }) as ClientWithCommands;
@@ -34,6 +37,12 @@ client.on(Events.InteractionCreate, async (interaction: Interaction) => {
         console.error(`No command matching ${interaction.commandName} was found.`);
         return;
     }
+
+    logger.logCommand(
+        interaction.user.id,
+        interaction.guildId || 'DM',
+        interaction.commandName
+    )
 
     try {
         await command.execute(interaction);
