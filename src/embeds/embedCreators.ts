@@ -115,7 +115,7 @@ export function createItemsEmbed(
       embed.addFields({ name: "Hero", value: item.hero, inline: true });
     }
     if (item.description && item.description.trim() !== "") {
-      embed.addFields({ name: "Description", value: item.description });
+      embed.addFields({ name: "Description", value: `${item.description}` });
     } else {
       embed.addFields({ name: "Description", value: "No description" });
     }
