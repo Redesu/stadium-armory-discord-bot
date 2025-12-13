@@ -93,6 +93,16 @@ export function createItemsEmbed(
       name: `${fileName}.png`,
     });
 
+    const statsvalue =
+      item.stats && item.stats.length > 0
+        ? item.stats
+            .map(
+              (stat) =>
+                `${stat.stat_modifier}${stat.stat_value}${stat.stat_unit} ${stat.stat_type}`
+            )
+            .join("\n")
+        : "N/A";
+
     const embed = new EmbedBuilder()
       .setTitle(item.name || "Unknown")
       .addFields(
@@ -100,10 +110,8 @@ export function createItemsEmbed(
         { name: "Type", value: item.type, inline: true },
         { name: "Price", value: `${item.price}`, inline: true },
         {
-          name: "Stat modifier",
-          value:
-            `${item.stat_modifier}${item.stat_value}${item.stat_unit} ${item.stat_type}` ||
-            "N/A",
+          name: "Stats",
+          value: statsvalue,
           inline: true,
         }
       )
