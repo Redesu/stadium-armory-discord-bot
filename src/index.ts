@@ -20,7 +20,7 @@ client.once(Events.ClientReady, c => {
 
     client.user?.setPresence({
         activities: [{
-            name: `Welcome to the Armory!`,
+            name: `Updated to season 20!`,
             type: ActivityType.Watching
         }],
         status: 'online'
