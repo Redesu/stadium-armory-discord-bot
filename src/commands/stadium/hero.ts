@@ -60,6 +60,11 @@ export const hero: Command = {
 
                     const heroes = await interaction.client.services.hero.getHero(searchParams);
 
+                    if (heroes.length === 0) {
+                        await interaction.editReply('No heroes found with the given parameters.');
+                        return;
+                    }
+
                     await handleHeroInfoResponse(interaction, heroes);
                     break;
                 }
