@@ -15,14 +15,14 @@ export const setactivity: Command = {
           { name: "Streaming", value: "STREAMING" },
           { name: "Listening", value: "LISTENING" },
           { name: "Watching", value: "WATCHING" },
-          { name: "Competing", value: "COMPETING" }
-        )
+          { name: "Competing", value: "COMPETING" },
+        ),
     )
     .addStringOption((option) =>
       option
         .setName("text")
         .setDescription("The activity text")
-        .setRequired(true)
+        .setRequired(true),
     )
     .setDefaultMemberPermissions(0),
 

@@ -11,13 +11,13 @@ export const power: Command = {
       option
         .setName("name")
         .setDescription("Name of the power")
-        .setAutocomplete(true)
+        .setAutocomplete(true),
     )
     .addStringOption((option) =>
-      option.setName("description").setDescription("Description of the power")
+      option.setName("description").setDescription("Description of the power"),
     )
     .addIntegerOption((option) =>
-      option.setName("hero_id").setDescription("The hero id of the power")
+      option.setName("hero_id").setDescription("The hero id of the power"),
     ),
 
   async execute(interaction) {
@@ -31,8 +31,8 @@ export const power: Command = {
 
     const power: Power = Object.fromEntries(
       Object.entries(powerData).filter(
-        ([_, value]) => value !== null && value !== undefined
-      )
+        ([_, value]) => value !== null && value !== undefined,
+      ),
     );
 
     try {

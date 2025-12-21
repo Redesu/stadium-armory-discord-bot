@@ -7,7 +7,7 @@ export function createHeroesEmbed(
   heroes: Hero[],
   page: number,
   totalPages: number,
-  heroesPerPage: number
+  heroesPerPage: number,
 ): PageData {
   const embeds: EmbedBuilder[] = [];
 
@@ -26,7 +26,7 @@ export function createHeroesEmbed(
     if (hero.passive) {
       embed.addFields(
         { name: "Passive", value: `${hero.passive ?? "None"}` },
-        { name: "Description", value: `${hero.description ?? "None"}` }
+        { name: "Description", value: `${hero.description ?? "None"}` },
       );
     }
 
@@ -41,7 +41,7 @@ export function createPowersEmbed(
   page: number,
   totalPages: number,
   powersPerPage: number,
-  embedColor: number
+  embedColor: number,
 ): PageData {
   const embeds: EmbedBuilder[] = [];
   const files: AttachmentBuilder[] = [];
@@ -76,7 +76,7 @@ export function createItemsEmbed(
   items: Item[],
   page: number,
   totalPages: number,
-  itemsPerPage: number
+  itemsPerPage: number,
 ): PageData {
   const embeds: EmbedBuilder[] = [];
   const files: AttachmentBuilder[] = [];
@@ -98,7 +98,7 @@ export function createItemsEmbed(
         ? item.stats
             .map(
               (stat) =>
-                `${stat.stat_modifier}${stat.stat_value}${stat.stat_unit} ${stat.stat_type}`
+                `${stat.stat_modifier}${stat.stat_value}${stat.stat_unit} ${stat.stat_type}`,
             )
             .join("\n")
         : "N/A";
@@ -113,7 +113,7 @@ export function createItemsEmbed(
           name: "Stats",
           value: statsvalue,
           inline: true,
-        }
+        },
       )
       .setThumbnail(`attachment://${fileName}.png`)
       .setColor(getRarityColor(item.rarity))

@@ -17,14 +17,14 @@ export const item: Command = {
         .addChoices(
           { name: "Common", value: "common" },
           { name: "Rare", value: "rare" },
-          { name: "Epic", value: "epic" }
-        )
+          { name: "Epic", value: "epic" },
+        ),
     )
     .addStringOption((option) =>
       option
         .setName("name")
         .setDescription("Name of the item")
-        .setAutocomplete(true)
+        .setAutocomplete(true),
     )
     .addStringOption((option) =>
       option
@@ -34,19 +34,19 @@ export const item: Command = {
           { name: "Hero Item (Weapon)", value: "hero_item_weapon" },
           { name: "Hero Item (Survival)", value: "hero_item_survival" },
           { name: "Hero Item (Ability)", value: "hero_item_ability" },
-          { name: "Gadget", value: "gadget" }
-        )
+          { name: "Gadget", value: "gadget" },
+        ),
     )
     .addStringOption((option) =>
       option
         .setName("description")
-        .setDescription("The description of the item")
+        .setDescription("The description of the item"),
     )
     .addIntegerOption((option) =>
-      option.setName("price").setDescription("The price of the item")
+      option.setName("price").setDescription("The price of the item"),
     )
     .addIntegerOption((option) =>
-      option.setName("hero_id").setDescription("The hero id of the item")
+      option.setName("hero_id").setDescription("The hero id of the item"),
     ),
 
   async execute(interaction) {
@@ -63,8 +63,8 @@ export const item: Command = {
 
     const item: Partial<Item> = Object.fromEntries(
       Object.entries(itemData).filter(
-        ([_, value]) => value !== null && value !== undefined
-      )
+        ([_, value]) => value !== null && value !== undefined,
+      ),
     );
 
     try {

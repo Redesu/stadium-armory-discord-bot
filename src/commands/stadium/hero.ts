@@ -19,7 +19,7 @@ export const hero: Command = {
           option
             .setName("name")
             .setDescription("Name of the hero")
-            .setAutocomplete(true)
+            .setAutocomplete(true),
         )
         .addStringOption((option) =>
           option
@@ -28,9 +28,9 @@ export const hero: Command = {
             .addChoices(
               { name: "tank", value: "tank" },
               { name: "damage", value: "damage" },
-              { name: "support", value: "support" }
-            )
-        )
+              { name: "support", value: "support" },
+            ),
+        ),
     )
     .addSubcommand((subcommand) =>
       subcommand
@@ -41,8 +41,8 @@ export const hero: Command = {
             .setName("name")
             .setDescription("Name of the hero")
             .setRequired(true)
-            .setAutocomplete(true)
-        )
+            .setAutocomplete(true),
+        ),
     )
     .addSubcommand((subcommand) =>
       subcommand
@@ -53,8 +53,8 @@ export const hero: Command = {
             .setName("name")
             .setDescription("Name of the hero")
             .setRequired(true)
-            .setAutocomplete(true)
-        )
+            .setAutocomplete(true),
+        ),
     ),
   async execute(interaction) {
     await interaction.deferReply();
@@ -75,7 +75,7 @@ export const hero: Command = {
 
           if (heroes.length === 0) {
             await interaction.editReply(
-              "No heroes found with the given parameters."
+              "No heroes found with the given parameters.",
             );
             return;
           }
@@ -91,7 +91,7 @@ export const hero: Command = {
 
           if (powers.length === 0) {
             await interaction.editReply(
-              `Powers not found for hero ${heroName}.`
+              `Powers not found for hero ${heroName}.`,
             );
             return;
           }
@@ -107,7 +107,7 @@ export const hero: Command = {
 
           if (items.length === 0) {
             await interaction.editReply(
-              `Items not found for hero ${heroName}.`
+              `Items not found for hero ${heroName}.`,
             );
             return;
           }
