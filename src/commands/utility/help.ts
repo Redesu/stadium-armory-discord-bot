@@ -10,7 +10,7 @@ export const help: Command = {
         await interaction.deferReply();
 
         const embed = new EmbedBuilder()
-            .setTitle('Avaible commands')
+            .setTitle('Available commands')
             .setColor(0x0099FF)
             .addFields(
                 { name: 'List hero or heroes info', value: '/hero info' },
@@ -18,6 +18,10 @@ export const help: Command = {
                 { name: 'List a hero powers', value: '/hero powers' },
                 { name: 'Search for an item', value: '/item' },
                 { name: 'Search for a power', value: '/power' },
+                { name: 'Get the bot invite link', value: '/invite' },
+                { name: 'Ping the bot', value: '/ping' },
+                { name: 'Set the bot activity status (OWNER ONLY)', value: '/setactivity' },
+                { name: 'Get help (this message)', value: '/help' },
             )
             .setFooter({ text: 'Made by @redesu' })
 
