@@ -4,6 +4,7 @@ import {
   createHeroesEmbed,
   createItemsEmbed,
   createPowersEmbed,
+  createSearchEmbed,
 } from "./embedCreators";
 import { createPagination } from "../utils/pagination";
 
@@ -13,7 +14,7 @@ export async function sendHeroesEmbed(
   options: {
     itemsPerPage?: number;
     timeout?: number;
-  } = {},
+  } = {}
 ): Promise<void> {
   const itemsPerPage = options.itemsPerPage ?? 4;
   const timeout = options.timeout ?? 30000;
@@ -34,7 +35,7 @@ export async function sendPowersEmbed(
     powersPerPage?: number;
     embedColor?: number;
     timeout?: number;
-  } = {},
+  } = {}
 ): Promise<void> {
   const powersPerPage = options.powersPerPage ?? 4;
   const embedColor = options.embedColor ?? 0x5865f2;
@@ -48,7 +49,7 @@ export async function sendPowersEmbed(
       page,
       totalPages,
       powersPerPage,
-      embedColor,
+      embedColor
     );
   };
 
@@ -61,7 +62,7 @@ export async function sendItemsEmbed(
   options: {
     itemsPerPage?: number;
     timeout?: number;
-  } = {},
+  } = {}
 ): Promise<void> {
   const itemsPerPage = options.itemsPerPage ?? 4;
   const timeout = options.timeout ?? 30000;
@@ -70,6 +71,26 @@ export async function sendItemsEmbed(
 
   const pageCreator = (page: number, totalPages: number): PageData => {
     return createItemsEmbed(items, page, totalPages, itemsPerPage);
+  };
+
+  await createPagination(interaction, totalPages, pageCreator, timeout);
+}
+
+export async function sendSearchEmbed(
+  interaction: ChatInputCommandInteraction,
+  results: any[],
+  options: {
+    itemsPerPage?: number;
+    timeout?: number;
+  } = {}
+): Promise<void> {
+  const itemsPerPage = options.itemsPerPage ?? 4;
+  const timeout = options.timeout ?? 30000;
+
+  const totalPages = Math.ceil(results.length / itemsPerPage);
+
+  const pageCreator = (page: number, totalPages: number): PageData => {
+    return createSearchEmbed(results, page, totalPages, itemsPerPage);
   };
 
   await createPagination(interaction, totalPages, pageCreator, timeout);
