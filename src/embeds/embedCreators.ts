@@ -149,9 +149,22 @@ export function createSearchEmbed(
   const pageItems = results.slice(start, end);
 
   for (const result of pageItems) {
+    const imageBuffer = base64ImageToBuffer(result.image_url || "");
+    const fileName = sanitizeFileName(result.name);
+
+    const attachment = new AttachmentBuilder(imageBuffer, {
+      name: `${fileName}.png`,
+    });
+
+    const statsvalue = result.stats
+      ? `${result.stats.stat_modifier}${result.stats.stat_value}${result.stats.stat_unit} ${result.stats.stat_type}`
+      : "N/A";
+
     const embed = new EmbedBuilder()
-      .setTitle("Search Results")
-      .setColor(0x00ff00)
+      .setTitle(result.name || "Unknown")
+      .setColor(getRarityColor(result.rarity) || 0xfd681f)
+      .addFields({ name: "Stats", value: statsvalue, inline: true })
+      .setThumbnail(`attachment://${fileName}.png`)
       .setFooter({ text: `Page ${page + 1} of ${totalPages}` });
 
     if (result.hero) {
@@ -176,6 +189,7 @@ export function createSearchEmbed(
     }
 
     embeds.push(embed);
+    files.push(attachment);
   }
 
   return { embeds, files };
