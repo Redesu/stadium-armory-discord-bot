@@ -93,7 +93,7 @@ export function createItemsEmbed(
       name: `${fileName}.png`,
     });
 
-    const statsvalue =
+    const statsValue =
       item.stats && item.stats.length > 0
         ? item.stats
             .map(
@@ -111,7 +111,7 @@ export function createItemsEmbed(
         { name: "Price", value: `${item.price}`, inline: true },
         {
           name: "Stats",
-          value: statsvalue,
+          value: statsValue,
           inline: true,
         }
       )
@@ -149,26 +149,42 @@ export function createSearchEmbed(
   const pageItems = results.slice(start, end);
 
   for (const result of pageItems) {
-    const imageBuffer = base64ImageToBuffer(result.image_url || "");
+    const imageBuffer = result.image_url
+      ? base64ImageToBuffer(result.image_url)
+      : Buffer.from([]);
     const fileName = sanitizeFileName(result.name);
 
     const attachment = new AttachmentBuilder(imageBuffer, {
       name: `${fileName}.png`,
     });
 
-    const statsvalue = result.stats
-      ? `${result.stats.stat_modifier}${result.stats.stat_value}${result.stats.stat_unit} ${result.stats.stat_type}`
-      : "N/A";
+    const statsValue =
+      result.stats && result.stats.length > 0
+        ? result.stats
+            .map(
+              (stat: any) =>
+                `${stat.stat_modifier}${stat.stat_value}${stat.stat_unit} ${stat.stat_type}`
+            )
+            .join("\n")
+        : "N/A";
 
     const embed = new EmbedBuilder()
       .setTitle(result.name || "Unknown")
       .setColor(getRarityColor(result.rarity) || 0xfd681f)
-      .addFields({ name: "Stats", value: statsvalue, inline: true })
+      .addFields(
+        { name: "Rarity", value: result.rarity, inline: true },
+        { name: "Type", value: result.type, inline: true },
+        {
+          name: "Stats",
+          value: statsValue,
+          inline: true,
+        }
+      )
       .setThumbnail(`attachment://${fileName}.png`)
       .setFooter({ text: `Page ${page + 1} of ${totalPages}` });
 
-    if (result.hero) {
-      embed.addFields({ name: "Hero", value: result.hero, inline: true });
+    if (result.hero_name) {
+      embed.addFields({ name: "Hero", value: result.hero_name, inline: true });
     }
 
     if (result.price) {
