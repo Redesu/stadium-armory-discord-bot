@@ -18,13 +18,17 @@ export const help: Command = {
         { name: "List a hero powers", value: "/hero powers" },
         { name: "Search for an item", value: "/item" },
         { name: "Search for a power", value: "/power" },
+        {
+          name: "Search across stadium items and items stats, you can use abbreviations and multiple search terms separated by a comma.",
+          value: "/search",
+        },
         { name: "Get the bot invite link", value: "/invite" },
         { name: "Ping the bot", value: "/ping" },
         {
           name: "Set the bot activity status (OWNER ONLY)",
           value: "/setactivity",
         },
-        { name: "Get help (this message)", value: "/help" },
+        { name: "Get help (this message)", value: "/help" }
       )
       .setFooter({ text: "Made by @redesu" });
 
