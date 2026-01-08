@@ -6,12 +6,14 @@ export const search: Command = {
   data: new SlashCommandBuilder()
     .setName("search")
     .setDescription(
-      "Search across stadium items and powers. Use abbreviations, if multiple, use a comma."
+      "Search across stadium items and items stats. Use abbreviations (ap, wp, etc), if multiple, use a comma."
     )
     .addStringOption((option) =>
       option
         .setName("query")
-        .setDescription("The search query")
+        .setDescription(
+          "The search query, can contain multiple terms separated by a comma."
+        )
         .setRequired(true)
     ),
   async execute(interaction) {
