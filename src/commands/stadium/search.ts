@@ -6,7 +6,7 @@ export const search: Command = {
   data: new SlashCommandBuilder()
     .setName("search")
     .setDescription(
-      "Search across stadium items and items stats. Use abbreviations (ap, wp, etc), if multiple, use a comma."
+      "Search across stadium items and items stats. You can use abbreviations for stats."
     )
     .addStringOption((option) =>
       option
